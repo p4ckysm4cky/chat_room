@@ -1,0 +1,39 @@
+* {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    color: rgb(241, 241, 241);
+}
+
+body {
+    background-color: rgb(45, 54, 56);
+}
+
+#messages li{
+    list-style-type: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#messageBoxContainer {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    display: flex;
+    width: 100vw;
+}
+
+#messageBox {
+    margin-left: auto;
+    margin-right: auto;
+    height: 40px;
+    background-color: rgb(245, 255, 245);
+    font-size: 15px;
+    width: 80vw;
+    color: rgb(46, 46, 46);
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+#messageBox:focus {
+    outline: none;
+}

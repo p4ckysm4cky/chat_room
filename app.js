@@ -16,6 +16,10 @@ app.get("/myscript.js", (req, res) => {
     res.sendFile(__dirname + "/public/myscript.js");
 });
 
+app.get("/styles.css", (req, res) => {
+    res.sendFile(__dirname + "/public/styles.css");
+})
+
 io.on("connection", (socket) => {
     console.log("A user has connected");
 
