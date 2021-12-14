@@ -20,6 +20,8 @@ function appendLi(text) {
     let newLi = document.createElement("li");
     newLi.innerHTML = text;
     messagesUl.appendChild(newLi);
+    // scroll to bottom of screen when message is received;
+    window.scrollTo(0,document.body.scrollHeight);
 }
 
 function initInput() {
