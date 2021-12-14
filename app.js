@@ -18,9 +18,15 @@ app.get("/myscript.js", (req, res) => {
 
 io.on("connection", (socket) => {
     console.log("A user has connected");
+
     socket.on("disconnect", () => {
-        console.log("User disconnected")
-    })
+        console.log("User disconnected");
+    });
+
+    socket.on("chat message", (message) => {
+        console.log(`Message: ${message}`)
+        socket.broadcast.emit("chat message", message);
+    });
 });
 
 server.listen(port, () => {
