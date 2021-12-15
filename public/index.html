@@ -1,28 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Room</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
-</head>
-<body>
-    <ul id="messages">
-        <!-- Messages are appended here -->
-    </ul>
-    <div id="messageBoxContainer">
-        <input
-            id="messageBox"
-            type="text"
-            placeholder="Input message here"
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chat Room</title>
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&display=swap"
+            rel="stylesheet"
         />
-    </div>
-</body>
-<!-- socket io server creates a route for the client which we can link to -->
-<script src="socket.io/socket.io.js"></script>
-<script src="./myscript.js"></script>
+    </head>
+    <body>
+        <div>
+            <button id="toggleMenu">Toggle menu</button>
+        </div>
+        <div id="menuBox">
+            <input type="text" placeholder="Nickname" />
+            <button>Join</button>
+        </div>
+        <ul id="messages">
+            <!-- Messages are appended here -->
+        </ul>
+        <div id="messageBoxContainer">
+            <input
+                id="messageBox"
+                type="text"
+                placeholder="Input message here"
+            />
+        </div>
+    </body>
+    <!-- socket io server creates a route for the client which we can link to -->
+    <script src="socket.io/socket.io.js"></script>
+    <script src="./myscript.js"></script>
 </html>

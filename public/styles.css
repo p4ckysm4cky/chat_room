@@ -1,17 +1,18 @@
 * {
     font-family: 'Raleway', sans-serif;
     font-weight: 500;
-    color: rgb(241, 241, 241);
 }
 
 body {
     background-color: rgb(45, 54, 56);
+    display: flex;
 }
 
 #messages li{
     list-style-type: none;
     margin-top: 10px;
     margin-bottom: 10px;
+    color: rgb(241, 241, 241);
 }
 
 #messages {
@@ -30,7 +31,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     height: 40px;
-    background-color: rgb(245, 255, 245);
+    background-color: rgb(255, 255, 255);
     font-size: 15px;
     width: 80vw;
     color: rgb(46, 46, 46);
@@ -40,4 +41,11 @@ body {
 
 #messageBox:focus {
     outline: none;
+}
+
+#menuBox {
+    position: fixed;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
 }
