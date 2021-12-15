@@ -4,8 +4,15 @@ const messageBoxInput = document.getElementById("messageBox");
 
 function main() {
     initInput();
-    socket.on("chat message", (message) => {
-        appendLi(`Anonymous User: ${message}`)
+    socket.on("chat message", (data) => {
+        const { id, message } = data;
+        appendLi(`${id}: ${message}`);
+    });
+    socket.on("user connected", (userId) => {
+        appendLi(`${userId} has connected`);
+    });
+    socket.on("user disconnected", (userId) => {
+        appendLi(`${userId} has disconnected`);
     });
 }
 
@@ -21,7 +28,7 @@ function appendLi(text) {
     newLi.innerHTML = text;
     messagesUl.appendChild(newLi);
     // scroll to bottom of screen when message is received;
-    window.scrollTo(0,document.body.scrollHeight);
+    window.scrollTo(0, document.body.scrollHeight);
 }
 
 function initInput() {
@@ -36,7 +43,7 @@ function initInput() {
         messageBoxInput.value = "";
     };
 
-    messageBoxInput.addEventListener("keyup", event => {
+    messageBoxInput.addEventListener("keyup", (event) => {
         if ("Enter" === event.key) runFunction();
     });
 }

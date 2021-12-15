@@ -18,18 +18,23 @@ app.get("/myscript.js", (req, res) => {
 
 app.get("/styles.css", (req, res) => {
     res.sendFile(__dirname + "/public/styles.css");
-})
+});
 
 io.on("connection", (socket) => {
     console.log("A user has connected");
+    socket.broadcast.emit("user connected", socket.id);
 
     socket.on("disconnect", () => {
-        console.log("User disconnected");
+        console.log(`user ${socket.id} has disconnected`);
+        socket.broadcast.emit("user disconnected", socket.id);
     });
 
     socket.on("chat message", (message) => {
-        console.log(`Message: ${message}`)
-        socket.broadcast.emit("chat message", message);
+        console.log(`${socket.id}: ${message}`);
+        socket.broadcast.emit("chat message", {
+            id: socket.id,
+            message: message,
+        });
     });
 });
 
