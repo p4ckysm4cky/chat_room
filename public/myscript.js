@@ -3,19 +3,26 @@ const messagesUl = document.getElementById("messages");
 const messageBoxInput = document.getElementById("messageBox");
 const toggleMenuBtn = document.getElementById("toggleMenu");
 const menuBoxDiv = document.getElementById("menuBox");
+const nicknameInput = document.getElementById("nicknameInput");
+const changeBtn = document.getElementById("changeBtn");
 
 function main() {
     initInput();
     initToggleMenu();
+    initChangeNickname();
     socket.on("chat message", (data) => {
-        const { id, message } = data;
-        appendLi(`${id}: ${message}`);
+        const { name, message } = data;
+        appendLi(`${name}: ${message}`);
     });
-    socket.on("user connected", (userId) => {
+    socket.on("user_connected", (userId) => {
         appendLi(`${userId} has connected`);
     });
-    socket.on("user disconnected", (userId) => {
+    socket.on("user_disconnected", (userId) => {
         appendLi(`${userId} has disconnected`);
+    });
+    socket.on("nickname_change", (data) => {
+        const { id, nickname } = data;
+        appendLi(`${id} has changed their nickname to ${nickname}`);
     });
 }
 
@@ -52,12 +59,36 @@ function initInput() {
 }
 
 function initToggleMenu() {
-    toggleMenuBtn.addEventListener("click" ,event => {
+    /**
+     * adds even listener to the left button to toggle
+     * the menu on the right hand side
+     */
+    toggleMenuBtn.addEventListener("click", (event) => {
         if (menuBoxDiv.style.display === "none")
             menuBoxDiv.style.display = "flex";
-        else
-            menuBoxDiv.style.display = "none";
-    })
+        else menuBoxDiv.style.display = "none";
+    });
+}
+
+function initChangeNickname() {
+    /**
+     * adds eventlistener to change button
+     * and nickname input
+     * to emit nickname to socket server
+     */
+    const runFunction = () => {
+        if (nicknameInput.value !== "") {
+            socket.emit("send_nickname", nicknameInput.value);
+            nicknameInput.value = "";
+        }
+    };
+
+    changeBtn.addEventListener("click", (event) => {
+        runFunction();
+    });
+    nicknameInput.addEventListener("keyup", (event) => {
+        if ("Enter" === event.key) runFunction();
+    });
 }
 
 main();

@@ -22,18 +22,29 @@ app.get("/styles.css", (req, res) => {
 
 io.on("connection", (socket) => {
     console.log("A user has connected");
-    socket.broadcast.emit("user connected", socket.id);
+    socket.broadcast.emit("user_connected", socket.id);
 
     socket.on("disconnect", () => {
-        console.log(`user ${socket.id} has disconnected`);
-        socket.broadcast.emit("user disconnected", socket.id);
+        let name = socket.nickname || socket.id
+        console.log(`user ${name} has disconnected`);
+        socket.broadcast.emit("user_disconnected", name);
     });
 
     socket.on("chat message", (message) => {
-        console.log(`${socket.id}: ${message}`);
+        let name = socket.nickname || socket.id
+        console.log(`${name}: ${message}`);
         socket.broadcast.emit("chat message", {
-            id: socket.id,
+            name: name,
             message: message,
+        });
+    });
+
+    socket.on("send_nickname", (nickname) => {
+        socket.nickname = nickname;
+        console.log(`${socket.id} changed their username to ${nickname}`)
+        io.emit("nickname_change", {
+            id: socket.id,
+            nickname: nickname,
         });
     });
 });
